@@ -67,7 +67,8 @@
 -- WHERE DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),date_naissance)), '%Y') > 50
 
 /* l. Acteurs ayant joué dans 3 films ou plus */
-SELECT concat(acteur.prenom,' ',acteur.nom) AS 'Acteur' , COUNT(casting.film_id) AS 'nombre de film joué'
-FROM acteur
-INNER JOIN casting ON casting.acteur_id = acteur.id
-GROUP BY acteur.id
+-- SELECT concat(acteur.prenom,' ',acteur.nom) AS 'Acteur' , COUNT(casting.film_id) AS 'nombre de film joué'
+-- FROM acteur
+-- INNER JOIN casting ON casting.acteur_id = acteur.id
+-- GROUP BY acteur.id
+-- HAVING COUNT(casting.film_id) >= 3
