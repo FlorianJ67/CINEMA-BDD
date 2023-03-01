@@ -11,62 +11,63 @@
 -- ORDER BY duree DESC 
 
 /* c.Liste des films d’un réalisateur (en précisant l’année de sortie) */
--- SELECT titre, sortie
+-- SELECT titre, DATE_FORMAT(sortie, "%Y") AS 'Année de sortie'
 -- FROM film
--- INNER JOIN realisateur ON realisateur.id = realisateur_Id
+-- INNER JOIN realisateur ON realisateur.id = realisateur_id
 -- WHERE realisateur.Nom = "Lambert" 
 
 /* d.Nombre de films par genre (classés dans l’ordre décroissant) */
--- SELECT genre.nom, COUNT(Film_Id) AS "nombre de film"
+-- SELECT genre.nom, COUNT(Film_Id) AS "Nombre de film"
 -- FROM `film-genre`
 -- INNER JOIN genre ON genre.id = genre_id
 -- GROUP BY genre_id
 -- ORDER BY genre_id DESC 
 
 /* e.Nombre de films par réalisateur (classés dans l’ordre décroissant) */
--- SELECT réalisateur.nom, réalisateur.prenom, COUNT(Réalisateur_Id) AS "Nb de Films"
+-- SELECT realisateur.nom, realisateur.prenom, COUNT(realisateur_id) AS "Nb de Films"
 -- FROM film
--- INNER JOIN réalisateur ON réalisateur.id = réalisateur_Id
--- GROUP BY Réalisateur_Id
--- ORDER BY Réalisateur_Id DESC 
+-- INNER JOIN realisateur ON realisateur.id = realisateur_id
+-- GROUP BY realisateur_id
+-- ORDER BY COUNT(realisateur_id) DESC 
 
 /* f.Casting d’un film en particulier (id_film): nom, prénom des acteurs + sexe */
--- SELECT acteur.nom, acteur.prenom, acteur.sex
+-- SELECT acteur.nom, acteur.prenom, acteur.sex, role.nom
 -- FROM casting
--- INNER JOIN acteur ON acteur.id = acteur_Id
--- INNER JOIN film ON film.id = film_Id
+-- INNER JOIN acteur ON acteur.id = acteur_id
+-- INNER JOIN role ON role.id = role_id
+-- INNER JOIN film ON film.id = film_id
 -- WHERE film.id = 1 
 
 /* g.Films tournés par un acteur en particulier (id_acteur)avec leur rôle et l’année de sortie (du film le plus récent au plus ancien) */
 -- SELECT film.titre, role.nom, film.sortie
 -- FROM casting
--- INNER JOIN film ON film.id = film_Id
--- INNER JOIN role ON role.id = role_Id
--- INNER JOIN acteur ON acteur.id = acteur_Id
+-- INNER JOIN film ON film.id = film_id
+-- INNER JOIN role ON role.id = role_id
+-- INNER JOIN acteur ON acteur.id = acteur_id
 -- WHERE acteur.id = 1
 -- ORDER BY film.sortie DESC 
 
 /* h.Listes des personnes qui sont à la fois acteurs et réalisateurs */
 -- SELECT acteur.nom, acteur.prenom
 -- FROM acteur
--- INNER JOIN réalisateur ON réalisateur.nom = acteur.nom
--- AND réalisateur.prenom = acteur.prenom 
+-- WHERE realisateur.nom = acteur.nom
+-- AND realisateur.prenom = acteur.prenom 
 
 /* i.Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien) */
 -- SELECT film.titre, film.sortie
 -- FROM film
 -- WHERE (YEAR(NOW()) - YEAR(film.sortie) ) < 5
--- ORDER BY (YEAR(NOW()) - YEAR(film.sortie) ) DESC 
+-- ORDER BY film.sortie DESC 
 
 /* j.Nombre d’hommes et de femmes parmi les acteurs */
 -- SELECT sexe, COUNT(acteur.sexe) AS Total
 -- FROM acteur
--- GROUP BY sexe
+-- GROUP BY sex
 
 /* k. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu) */
 -- SELECT concat(acteur.prenom,' ',acteur.nom) AS 'Acteur' , DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),date_naissance)), '%Y') + 0 AS age
 -- FROM acteur
--- WHERE DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),date_naissance)), '%Y') > 50
+-- WHERE DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),date_de_naissance)), '%Y') > 50
 
 /* l. Acteurs ayant joué dans 3 films ou plus */
 -- SELECT concat(acteur.prenom,' ',acteur.nom) AS 'Acteur' , COUNT(casting.film_id) AS 'nombre de film joué'
