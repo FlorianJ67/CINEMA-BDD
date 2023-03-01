@@ -1,25 +1,27 @@
-/* a.Informations d’un film(id_film): titre, année, durée (au format HH:MM) et réalisateur */
--- SELECT id, titre, sortie, DATE_FORMAT(durée, "%H:%i")
+/* a.Informations d’un film(id_film): titre, annee, duree (au format HH:MM) et realisateur */
+-- SELECT id, titre, sortie, DATE_FORMAT(duree, "%H:%i"), concat(realisateur.prenom,' ',realisateur.nom) AS 'Réalisateur'
 -- FROM film 
+-- INNER JOIN realisateur ON realisateur.id = realisateur_id
+-- WHERE id = 1
 
 /* b.Liste des films dont la durée excède 2h15 classés par durée (du plus long au plus court */
--- SELECT titre, DATE_FORMAT(durée, "%H:%i")
+-- SELECT titre, DATE_FORMAT(duree, "%H:%i")
 -- FROM film
--- WHERE durée > 135
--- ORDER BY durée DESC 
+-- WHERE duree > 135
+-- ORDER BY duree DESC 
 
 /* c.Liste des films d’un réalisateur (en précisant l’année de sortie) */
 -- SELECT titre, sortie
 -- FROM film
--- INNER JOIN réalisateur ON réalisateur.id = Réalisateur_Id
--- WHERE réalisateur.Nom = "Lambert" 
+-- INNER JOIN realisateur ON realisateur.id = realisateur_Id
+-- WHERE realisateur.Nom = "Lambert" 
 
 /* d.Nombre de films par genre (classés dans l’ordre décroissant) */
 -- SELECT genre.nom, COUNT(Film_Id) AS "nombre de film"
 -- FROM `film-genre`
--- INNER JOIN genre ON genre.id = Genre_Id
--- GROUP BY Genre_Id
--- ORDER BY Genre_Id DESC 
+-- INNER JOIN genre ON genre.id = genre_id
+-- GROUP BY genre_id
+-- ORDER BY genre_id DESC 
 
 /* e.Nombre de films par réalisateur (classés dans l’ordre décroissant) */
 -- SELECT réalisateur.nom, réalisateur.prenom, COUNT(Réalisateur_Id) AS "Nb de Films"
