@@ -14,7 +14,7 @@
 -- SELECT titre, DATE_FORMAT(sortie, "%Y") AS 'Année de sortie'
 -- FROM film
 -- INNER JOIN realisateur ON realisateur.id = realisateur_id
--- WHERE realisateur.Nom = "Lambert" 
+-- WHERE realisateur.nom = "Lambert" 
 
 /* d.Nombre de films par genre (classés dans l’ordre décroissant) */
 -- SELECT genre.nom, COUNT(Film_Id) AS "Nombre de film"
