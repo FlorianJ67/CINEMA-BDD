@@ -26,7 +26,7 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
-            SELECT CONCAT(nom,' ',prenom) as 'acteur', sex
+            SELECT CONCAT(nom,' ',prenom) as 'acteur', date_de_naissance, sex
             FROM acteur       
         ");
       

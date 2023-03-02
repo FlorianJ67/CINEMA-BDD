@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Acteur</th>
+                <th>Date de naissance</th>
                 <th>Sex</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                 foreach($requete->fetchAll() as $acteur) { ?>
                     <tr>
                         <td><?= $acteur["acteur"] ?></td>
+                        <td><?= $acteur["date_de_naissance"] ?></td>
                         <td><?= $acteur["sex"] ?></td>
                     </tr>
             <?php } ?>
