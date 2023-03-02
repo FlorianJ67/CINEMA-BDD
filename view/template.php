@@ -11,10 +11,10 @@
     <header>
         <ul>
         <li>
-                <a href="">Liste des films</a>
+                <a href="index.php?action=listFilms">Liste des films</a>
         </li>
         <li>
-                <a href="">Liste des acteurs</a>               
+                <a href="index.php?action=listActeurs">Liste des acteurs</a>               
         </li>
         <li>
                 

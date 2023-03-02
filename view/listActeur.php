@@ -9,8 +9,8 @@
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
-            <th>Acteur</th>
-            <th>Sex</th>
+                <th>Acteur</th>
+                <th>Sex</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@
             <?php } ?>
         </tbody>
     </table>
-    
+
 </div>
 
 <?php

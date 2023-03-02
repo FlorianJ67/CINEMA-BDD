@@ -9,8 +9,10 @@
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
-            <th>TITRE</th>
-            <th>ANNEE SORTIE</th>
+                <th>TITRE</th>
+                <th>RÉALISATEUR</th>
+                <th>DURÉE</th>
+                <th>ANNEE SORTIE</th>
             </tr>
         </thead>
         <tbody>
@@ -18,12 +20,14 @@
                 foreach($requete->fetchAll() as $film) { ?>
                     <tr>
                         <td><?= $film["titre"] ?></td>
+                        <td><?= $film["realisateur"] ?></td>
+                        <td><?= $film["duree"] ?> min</td>
                         <td><?= $film["sortie"] ?></td>
                     </tr>
             <?php } ?>
         </tbody>
     </table>
-    
+
 </div>
 
 <?php
