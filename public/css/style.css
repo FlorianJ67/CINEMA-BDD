@@ -1,1 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+:root {
+    --grey1 :#a1a1a1;
+}
+a {
+    text-decoration: none;
+    color: white
+}
+h1, h2, h3 {
+    color: rgb(37, 37, 37);
+}
+h1 {
+    margin: 2%;
+}
+h2 {
+    margin-bottom: 1%;
+}
+header {
+    /*flex*/
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /*endFlex*/
+    width: 100%;
+    height: 50px;
+    background-color:var(--grey1);
+}
+header ul {
+    /*flex*/
+    display: flex;
+    justify-content: space-around;
+    /*endFlex*/
+    width: 80%;
+}
+
+#contenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+/* Table */
+.tableHeader {
+    background-color: #d9d9d9;
+    height: 40px;
+    width: 90%;
+    padding: 0 10px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.tableHeader p {
+    background-color: #9b9b9b;
+    color: #33363a;
+    height: 30px;
+    width: 14%;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tableContainer {
+    width: 90%;
+    background-color: #9b9b9b;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+}
+.tableContainer, .tableHeader {
+    box-shadow: rgb(38 57 77) 0px 20px 30px -10px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table thead {
+    background-color: #bcbcbc;
+}
+table thead th {
+    color: white;
+    font-size: 20px;
+}
+
+table tbody td {
+    color: #878787;
+    text-align: center;
+}
+
+table thead th,table tbody tr {
+    height: 30px;
+    font-size: 20px;
+}
+
+table tbody tr {
+    background-color: white;
+}
+table tbody tr:nth-child(even) {
+    background-color: #d9d9d9;
+}
+
+
+/* ligne de séparation du tableau */
+table thead th:not(:last-child){
+    border-right: 1px solid #8f8f8f;
+}
+table tbody td:not(:last-child){
+    border-right: 1px solid #8f8f8f;
+}
 

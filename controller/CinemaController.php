@@ -12,10 +12,23 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
-            SELECT titre, annee_sortie
+            SELECT titre, sortie
             FROM film        
         ");
-      
         require "view/listFilms.php";
+    }
+
+    /**
+     * Lister les acteurs
+     */
+    public function listActeurs() {
+        
+        $pdo = Connect::seConnecter();
+        $requete = $pdo->query("
+            SELECT CONCAT(nom,' ',prenom) as 'acteur', sex
+            FROM acteur       
+        ");
+      
+        require "view/listActeur.php";
     }
 }
