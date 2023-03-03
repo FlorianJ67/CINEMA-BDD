@@ -41,16 +41,15 @@
                 </li>
                 <li>
                     <p>Casting</p>
-                    <p><?php 
+                    <p class="castingFilm">
+                    <?php 
                         $i = 0;
                         $len = count($casting) - 1;
                         foreach($casting as $acteur) {
-                            // dernier élément (pas de " , " à la fin)
+                            echo "<a href='index.php?action=detailActeur&id=" .  $acteur['id'] ."'>" . $acteur["acteur"] . "</a>";
                             if ($i === $len) {
-                                echo $acteur["acteur"];
-
                             } else {
-                                echo $acteur["acteur"] .", "; 
+                                echo ", "; 
                             $i++;
                         }
 

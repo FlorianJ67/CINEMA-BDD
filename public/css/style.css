@@ -47,6 +47,9 @@ header ul li {
     width: 90%;
     margin: auto;
 }
+#contenu ul li a{
+    color: #373737;
+}
 
 /* Container */
 .header {
@@ -58,6 +61,7 @@ header ul li {
     height: 40px;
     width: 90%;
     padding: 0 10px;
+    font-weight: bold;
     border-radius: 8px 8px 0 0;
 }
 .header p, .header h3 {
@@ -66,9 +70,9 @@ header ul li {
     justify-content: center;
 
     background-color: #9b9b9b;
-    color: #33363a;
+    color: #ffffffcc;
     height: 30px;
-    width: 14%;
+    width: 30%;
     border-radius: 8px 8px 0 0;
     position: relative;
     right: 10px;

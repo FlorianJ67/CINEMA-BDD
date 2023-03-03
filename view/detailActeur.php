@@ -17,11 +17,20 @@
             <ul>
                 <li>
                     <p>Sex</p>
-                    <p><?= $acteur["sex"] ?></p>
+                    <p>
+                        <?php if($acteur["sex"] == "H") {
+                            echo "Homme";
+                        } else if($acteur["sex"] == "H") {
+                            echo "Femme";
+                        } else {
+                            echo "Hélicoptère apache";
+                        }
+                        ?>
+                    </p>
                 </li>
                 <li>
                     <p>Date de Naissance</p>
-                    <p><?= $acteur["date_de_naissance"] ?> min</p>
+                    <p><?= $acteur["date_de_naissance"] ?></p>
                 </li>
                 <li>
                     <p>Filmographie</p>
@@ -29,7 +38,7 @@
                         $i = 0;
                         $len = count($filmographie) - 1;
                         foreach($filmographie as $film) {
-                                echo $film["titre"];
+                                echo "<a href='index.php?action=detailFilm&id=" .  $film['id'] ."'>" . $film["titre"] . "</a>";
                                 echo "<br>Role: " . $film["nom"];
                             if ($i === $len) {
                             } else {
