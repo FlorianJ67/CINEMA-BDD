@@ -152,7 +152,7 @@ table tbody tr:nth-child(even) {
     justify-content: center;
 }
 .detailView ul li p{
-    margin: 4px 6px;
+    margin: 10px;
     width: 50%;
 }
 .detailView ul li p:first-child{

@@ -37,7 +37,7 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->prepare("
-            SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie, note, affiche, synopsis, GROUP_CONCAT( genre.nom SEPARATOR ', ' ) as genres
+            SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie, note, affiche, synopsis, GROUP_CONCAT(CONCAT(UCASE(LEFT(genre.nom,1)),LCASE(SUBSTRING(genre.nom,2))) SEPARATOR ', ' ) as genres
             FROM film   
             INNER JOIN realisateur ON realisateur.id = realisateur_id  
             INNER JOIN filmGenre ON film.id = filmGenre.film_id  
