@@ -1,6 +1,9 @@
 <?php ob_start(); ?>
 
-<?php $film= $requete->fetch(); ?>
+<?php 
+    $film= $requete->fetch(); 
+    $casting= $requete2->fetchAll(); 
+?>
 
 <div class='header'>
     <h3 class="uk-label uk-label-warning"><?= $film["titre"] ?></h3>
@@ -34,11 +37,23 @@
                 </li>
                 <li>
                     <p>Genre</p>
-                    <p><?= $film["genre.nom"] ?></p>
+                    <p><?= $film["genres"] ?></p>
                 </li>
                 <li>
                     <p>Casting</p>
-                    <p><?= $film["acteur"] ?></p>
+                    <p><?php 
+                        $i = 0;
+                        $len = count($casting);
+                        foreach($casting as $acteur) {
+                            if ($i === $len - 1) {
+                                echo $acteur["acteur"];
+                            } else {
+                                echo $acteur["acteur"] .", "; 
+                            $i++;
+                        }
+
+                    }?>
+                    </p>
                 </li>
             </ul>
     </div>
