@@ -96,9 +96,12 @@ table thead th {
     font-size: 20px;
 }
 
-table tbody td {
+table tbody td, table tbody td a {
     color: #878787;
     text-align: center;
+}
+table tbody td a {
+    font-weight: bold;
 }
 
 table thead th,table tbody tr {
