@@ -37,13 +37,15 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->prepare("
-            SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie
+            SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur', duree, sortie, note, affiche, synopsis
             FROM film   
-            WHERE id = :id
-            INNER JOIN realisateur ON realisateur.id = realisateur_id     
+            INNER JOIN realisateur ON realisateur.id = realisateur_id  
+            INNER JOIN casting ON film.id = film_id  
+            INNER JOIN acteur ON acteur.id = acteur_id
+            WHERE film.id = :id   
         ");
-        $requete->execute(["id" -> $id]);
-        require "view/listFilms.php";
+        $requete->execute(["id" => $id]);
+        require "view/detailFilm.php";
     }
     
 }

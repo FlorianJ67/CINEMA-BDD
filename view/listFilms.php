@@ -1,10 +1,10 @@
 <?php ob_start(); ?>
 
-<div class='tableHeader'>
+<div class='header'>
     <p class="uk-label uk-label-warning">Il y a <?= $requete->rowCount() ?> films</p>
 </div>
 
-<div class='tableContainer'>
+<div class='container'>
 
     <table class="uk-table uk-table-striped">
         <thead>
