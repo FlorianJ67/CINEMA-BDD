@@ -33,6 +33,17 @@ class CinemaController {
         require "view/listActeur.php";
     }
 
+    public function listRealisateurs() {
+        
+        $pdo = Connect::seConnecter();
+        $requete = $pdo->query("
+            SELECT realisateur.id, CONCAT(nom,' ',prenom) AS 'realisateur', date_de_naissance, sex
+            FROM realisateur       
+        ");
+      
+        require "view/listRealisateurs.php";
+    }
+
     public function detailFilm($id) {
         
         $pdo = Connect::seConnecter();
@@ -79,6 +90,28 @@ class CinemaController {
         $requete2->execute(["id" => $id]);
 
         require "view/detailActeur.php";
+    }
+
+    public function detailRealisateur($id) {
+        
+        $pdo = Connect::seConnecter();
+        $requete = $pdo->prepare("
+            SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'acteur', sex, date_de_naissance
+            FROM realisateur
+            WHERE realisateur.id = :id   
+        ");
+        $requete->execute(["id" => $id]);
+
+        $requete2 = $pdo->prepare("
+            SELECT film.id, film.titre, role.nom
+            FROM film   
+            INNER JOIN casting ON film.id = casting.film_id  
+            INNER JOIN realisateur ON realisateur.id = casting.realisateur_id   
+            WHERE realisateur.id = :id   
+        ");
+        $requete2->execute(["id" => $id]);
+
+        require "view/detailRealisateur.php";
     }
     
 }
