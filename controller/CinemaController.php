@@ -57,5 +57,28 @@ class CinemaController {
 
         require "view/detailFilm.php";
     }
+
+    public function detailActeur($id) {
+        
+        $pdo = Connect::seConnecter();
+        $requete = $pdo->prepare("
+            SELECT id, CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur', sex, date_de_naissance
+            FROM acteur 
+            WHERE acteur.id = :id   
+        ");
+        $requete->execute(["id" => $id]);
+
+        $requete2 = $pdo->prepare("
+            SELECT film.id, film.titre, role.nom
+            FROM film   
+            INNER JOIN casting ON film.id = casting.film_id  
+            INNER JOIN acteur ON acteur.id = casting.acteur_id  
+            INNER JOIN role ON role.id = casting.role_id   
+            WHERE acteur.id = :id   
+        ");
+        $requete2->execute(["id" => $id]);
+
+        require "view/detailActeur.php";
+    }
     
 }

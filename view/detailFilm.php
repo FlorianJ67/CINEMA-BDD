@@ -43,10 +43,12 @@
                     <p>Casting</p>
                     <p><?php 
                         $i = 0;
-                        $len = count($casting);
+                        $len = count($casting) - 1;
                         foreach($casting as $acteur) {
-                            if ($i === $len - 1) {
+                            // dernier élément (pas de " , " à la fin)
+                            if ($i === $len) {
                                 echo $acteur["acteur"];
+
                             } else {
                                 echo $acteur["acteur"] .", "; 
                             $i++;
