@@ -5,23 +5,20 @@ use Model\Connect;
 
 class CinemaController {
 
-    /**
-     * Lister les films
-     */
+
+    //Liste:
+
     public function listFilms() {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
-            SELECT film.id, titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie
+            SELECT film.id AS filmID, titre, realisateur.id as realID, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie
             FROM film   
             INNER JOIN realisateur ON realisateur.id = realisateur_id     
         ");
         require "view/listFilms.php";
     }
 
-    /**
-     * Lister les acteurs
-     */
     public function listActeurs() {
         
         $pdo = Connect::seConnecter();
@@ -30,7 +27,7 @@ class CinemaController {
             FROM acteur       
         ");
       
-        require "view/listActeur.php";
+        require "view/listActeurs.php";
     }
 
     public function listRealisateurs() {
@@ -44,6 +41,7 @@ class CinemaController {
         require "view/listRealisateurs.php";
     }
 
+    //détail:
     public function detailFilm($id) {
         
         $pdo = Connect::seConnecter();
@@ -96,22 +94,66 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
         $requete = $pdo->prepare("
-            SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'acteur', sex, date_de_naissance
+            SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', sex, date_de_naissance
             FROM realisateur
             WHERE realisateur.id = :id   
         ");
         $requete->execute(["id" => $id]);
 
         $requete2 = $pdo->prepare("
-            SELECT film.id, film.titre, role.nom
+            SELECT DISTINCT film.id, film.titre
             FROM film   
-            INNER JOIN casting ON film.id = casting.film_id  
-            INNER JOIN realisateur ON realisateur.id = casting.realisateur_id   
-            WHERE realisateur.id = :id   
+            WHERE realisateur_id = :id   
         ");
         $requete2->execute(["id" => $id]);
 
         require "view/detailRealisateur.php";
     }
-    
+
+    //Ajout:
+    public function addActeur() {
+
+        if(isset($_POST['submit'])){
+        
+            //prenom
+            $firstname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //nom
+            $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //sex
+            $sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //date de naissance
+            $birthday = filter_input(INPUT_POST, "birthday", FILTER_SANITIZE_SPECIAL_CHARS);
+            $datetime = new \DateTime($birthday);
+            $birthday = $datetime->format('Y-m-d');
+
+          
+            if($firstname && $name && $sex && $birthday){
+            $pdo = Connect::seConnecter();
+                // $acteur = [
+                //     "firstname" => $firstname,
+                //     "name" => $name,
+                //     "sex" => $sex,
+                //     "birthday" => $birthday
+                // ];
+
+                $ajoutActeur = $pdo->prepare("
+                    INSERT INTO acteur (prenom, nom, sex, date_de_naissance)
+                        VALUES (:firstname, :name, :sex, :birthday)  
+                ");
+                $ajoutActeur->execute([
+                    ":firstname" => ucfirst($firstname),
+                    ":name" => ucfirst($name),
+                    ":sex" => $sex,
+                    ":birthday" => $birthday            
+                ]);
+                header("Location:index.php?action=listActeurs");
+                die();
+            }
+        }
+
+        require "view/ajoutActeur.php";
+    }
 }
+
+
+?>

@@ -34,18 +34,19 @@
                 </li>
                 <li>
                     <p>Filmographie</p>
-                    <p><?php 
+                    <p>
+                    <?php 
                         $i = 0;
                         $len = count($filmographie) - 1;
                         foreach($filmographie as $film) {
-                                echo "<a href='index.php?action=detailFilm&id=" .  $film['id'] ."'>" . $film["titre"] . "</a>";
+                                echo "<a href='index.php?action=detailFilm&id=" . $film['id'] ."'>" . $film["titre"] . "</a>";
                             if ($i === $len) {
                             } else {
                                 echo "<br> "; 
                             $i++;
+                            }
                         }
-
-                    }?>
+                    ?>
                     </p>
                 </li>
             </ul>
@@ -55,8 +56,8 @@
 
 <?php
 
-$titre = "Détail du Realisateur";
-$titre_secondaire = "Détail du Realisateur";
+$titre = "Détail du Réalisateur";
+$titre_secondaire = "Détail du Réalisateur";
 $contenu = ob_get_clean();
 require "view/template.php";
 
