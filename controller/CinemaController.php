@@ -129,12 +129,6 @@ class CinemaController {
           
             if($firstname && $name && $sex && $birthday){
             $pdo = Connect::seConnecter();
-                // $acteur = [
-                //     "firstname" => $firstname,
-                //     "name" => $name,
-                //     "sex" => $sex,
-                //     "birthday" => $birthday
-                // ];
 
                 $ajoutActeur = $pdo->prepare("
                     INSERT INTO acteur (prenom, nom, sex, date_de_naissance)
@@ -152,6 +146,88 @@ class CinemaController {
         }
 
         require "view/ajoutActeur.php";
+    }
+
+    public function addRealisateur() {
+
+        if(isset($_POST['submit'])){
+        
+            //prenom
+            $firstname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //nom
+            $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //sex
+            $sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //date de naissance
+            $birthday = filter_input(INPUT_POST, "birthday", FILTER_SANITIZE_SPECIAL_CHARS);
+            $datetime = new \DateTime($birthday);
+            $birthday = $datetime->format('Y-m-d');
+
+          
+            if($firstname && $name && $sex && $birthday){
+            $pdo = Connect::seConnecter();
+
+                $ajoutRealisateur = $pdo->prepare("
+                    INSERT INTO realisateur (prenom, nom, sex, date_de_naissance)
+                        VALUES (:firstname, :name, :sex, :birthday)  
+                ");
+                $ajoutRealisateur->execute([
+                    ":firstname" => ucfirst($firstname),
+                    ":name" => ucfirst($name),
+                    ":sex" => $sex,
+                    ":birthday" => $birthday            
+                ]);
+                header("Location:index.php?action=listRealisateurs");
+                die();
+            }
+        }
+
+        require "view/ajoutRealisateur.php";
+    }
+
+    public function addFilm() {
+
+        if(isset($_POST['submit'])){
+        
+            //titre
+            $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //realisateur
+            $realisateur = filter_input(INPUT_POST, "realisateur", FILTER_SANITIZE_NUMBER_INT);
+            //duree
+            $duree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
+            //date de sortie
+            $sortie = filter_input(INPUT_POST, "sortie", FILTER_SANITIZE_SPECIAL_CHARS);
+            $datetime = new \DateTime($sortie);
+            $sortie = $datetime->format('Y-m-d');
+            //synopsis
+            $synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //note
+            $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+            //affiche
+            $affiche = filter_input(INPUT_POST, "affiche", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if($titre && $realisateur && $duree && $sortie && $synopsis && $note && $affiche){
+            $pdo = Connect::seConnecter();
+
+                $ajoutFilm = $pdo->prepare("
+                    INSERT INTO film (titre, realisateur_id, duree, sortie, synopsis, note, affiche)
+                        VALUES (:titre, :realisateur_id, :duree, :sortie, :synopsis, :note, :affiche)  
+                ");
+                $ajoutFilm->execute([
+                    ":film" => ucfirst($titre),
+                    ":realisateur_id" => $realisateur,
+                    ":duree" => $duree,
+                    ":sortie" => $sortie,
+                    ":synopsis" => $synopsis,
+                    ":note" => $note,
+                    ":affiche" => $affiche          
+                ]);
+                header("Location:index.php?action=listFilms");
+                die();
+            }
+        }
+
+        require "view/ajoutFilm.php";
     }
 }
 
