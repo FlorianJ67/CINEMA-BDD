@@ -39,7 +39,7 @@
                         $i = 0;
                         $len = count($filmographie) - 1;
                         foreach($filmographie as $film) {
-                                echo "<a href='index.php?action=detailFilm&id=" . $film['id'] ."'>" . $film["titre"] . "</a>";
+                                echo "<a href='index.php?action=detailFilm&id=" . $film['id'] ."'>" . $film['titre'] . "</a>";
                             if ($i === $len) {
                             } else {
                                 echo "<br> "; 

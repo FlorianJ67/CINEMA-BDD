@@ -44,7 +44,9 @@ class CinemaController {
     //détail:
     public function detailFilm($id) {
         
+        //Connexion à la base de donnée
         $pdo = Connect::seConnecter();
+        //Préparation de la requete SQL
         $requete = $pdo->prepare("
             SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie, note, affiche, synopsis, GROUP_CONCAT(CONCAT(UCASE(LEFT(genre.nom,1)),LCASE(SUBSTRING(genre.nom,2))) SEPARATOR ', ' ) as genres
             FROM film   
@@ -53,8 +55,10 @@ class CinemaController {
             INNER JOIN genre ON genre.id = genre_id
             WHERE film.id = :id   
         ");
+        //Exécution de la requete SQL
         $requete->execute(["id" => $id]);
 
+        //Préparation de la requete SQL
         $requete2 = $pdo->prepare("
             SELECT acteur.id, CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur'
             FROM film   
@@ -62,6 +66,7 @@ class CinemaController {
             INNER JOIN acteur ON acteur.id = acteur_id   
             WHERE film.id = :id   
         ");
+        //Exécution de la requete SQL
         $requete2->execute(["id" => $id]);
 
         require "view/detailFilm.php";
@@ -70,13 +75,16 @@ class CinemaController {
     public function detailActeur($id) {
         
         $pdo = Connect::seConnecter();
+        //Préparation de la requete SQL
         $requete = $pdo->prepare("
             SELECT id, CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur', sex, date_de_naissance
             FROM acteur 
             WHERE acteur.id = :id   
         ");
+        //Exécution de la requete SQL
         $requete->execute(["id" => $id]);
 
+        //Préparation de la requete SQL
         $requete2 = $pdo->prepare("
             SELECT film.id, film.titre, role.nom
             FROM film   
@@ -85,6 +93,7 @@ class CinemaController {
             INNER JOIN role ON role.id = casting.role_id   
             WHERE acteur.id = :id   
         ");
+        //Exécution de la requete SQL
         $requete2->execute(["id" => $id]);
 
         require "view/detailActeur.php";
@@ -93,18 +102,22 @@ class CinemaController {
     public function detailRealisateur($id) {
         
         $pdo = Connect::seConnecter();
+        //Préparation de la requete SQL
         $requete = $pdo->prepare("
             SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', sex, date_de_naissance
             FROM realisateur
             WHERE realisateur.id = :id   
         ");
+        //Exécution de la requete SQL
         $requete->execute(["id" => $id]);
 
+        //Préparation de la requete SQL
         $requete2 = $pdo->prepare("
             SELECT DISTINCT film.id, film.titre
             FROM film   
             WHERE realisateur_id = :id   
         ");
+        //Exécution de la requete SQL
         $requete2->execute(["id" => $id]);
 
         require "view/detailRealisateur.php";
@@ -130,10 +143,12 @@ class CinemaController {
             if($firstname && $name && $sex && $birthday){
             $pdo = Connect::seConnecter();
 
+                //Préparation de la requete SQL
                 $ajoutActeur = $pdo->prepare("
                     INSERT INTO acteur (prenom, nom, sex, date_de_naissance)
                         VALUES (:firstname, :name, :sex, :birthday)  
                 ");
+                //Exécution de la requete SQL
                 $ajoutActeur->execute([
                     ":firstname" => ucfirst($firstname),
                     ":name" => ucfirst($name),
@@ -167,10 +182,12 @@ class CinemaController {
             if($firstname && $name && $sex && $birthday){
             $pdo = Connect::seConnecter();
 
+                //Préparation de la requete SQL
                 $ajoutRealisateur = $pdo->prepare("
                     INSERT INTO realisateur (prenom, nom, sex, date_de_naissance)
                         VALUES (:firstname, :name, :sex, :birthday)  
                 ");
+                //Exécution de la requete SQL
                 $ajoutRealisateur->execute([
                     ":firstname" => ucfirst($firstname),
                     ":name" => ucfirst($name),
@@ -187,8 +204,30 @@ class CinemaController {
 
     public function addFilm() {
 
+        $pdo = Connect::seConnecter();
+
+        //Liste des réalisateur pour input>select
+        //Préparation de la requete SQL
+        $listRealisateur = $pdo->prepare("
+            SELECT DISTINCT realisateur.id, CONCAT(realisateur.prenom, ' ', realisateur.nom) as realisateurFullName, realisateur.nom 
+            FROM realisateur
+            ORDER BY realisateur.nom 
+        ");
+        //Exécution de la requete SQL
+        $listRealisateur->execute();
+
+        //liste des genre pour input>checkbox
+        //Préparation de la requete SQL
+        $listGenre = $pdo->prepare("
+            SELECT DISTINCT genre.id, genre.nom
+            FROM genre 
+            ORDER BY genre.nom DESC  
+        ");
+        //Exécution de la requete SQL
+        $listGenre->execute();
+
+        //Post
         if(isset($_POST['submit'])){
-        
             //titre
             $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             //realisateur
@@ -201,32 +240,63 @@ class CinemaController {
             $sortie = $datetime->format('Y-m-d');
             //synopsis
             $synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //genre
+            $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
             //note
             $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
-            //affiche
-            $affiche = filter_input(INPUT_POST, "affiche", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //genre (tableau)
+            $genres = filter_input(INPUT_POST, "genres" , FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-            if($titre && $realisateur && $duree && $sortie && $synopsis && $note && $affiche){
-            $pdo = Connect::seConnecter();
 
+            if($titre && $realisateur && $duree && $sortie && $synopsis && $note){
+
+            //Upload de l'image dans public/img
+            if(isset($_FILES['affiche'])){
+                $tmpName = $_FILES['affiche']['tmp_name'];
+                $name = $_FILES['affiche']['name'];
+                $size = $_FILES['affiche']['size'];
+                $error = $_FILES['affiche']['error'];
+
+                //UpLoad + chemain de l'upLoad
+                move_uploaded_file($tmpName, './public/img/'.$name);
+
+                //affiche
+                $affiche = "public/img/".$name;
+            }
+
+                //Préparation de la requete SQL
                 $ajoutFilm = $pdo->prepare("
                     INSERT INTO film (titre, realisateur_id, duree, sortie, synopsis, note, affiche)
                         VALUES (:titre, :realisateur_id, :duree, :sortie, :synopsis, :note, :affiche)  
                 ");
+                //Exécution de la requete SQL
                 $ajoutFilm->execute([
-                    ":film" => ucfirst($titre),
+                    ":titre" => ucfirst($titre),
                     ":realisateur_id" => $realisateur,
                     ":duree" => $duree,
                     ":sortie" => $sortie,
                     ":synopsis" => $synopsis,
                     ":note" => $note,
-                    ":affiche" => $affiche          
+                    ":affiche" => $affiche
                 ]);
+
+                //Préparation de la requete SQL
+                $ajoutCastingFilm = $pdo->prepare("
+                    INSERT INTO filmgenre (film_id, genre_id)
+                        VALUES (:film_id, :genre_id)  
+                ");
+                //Exécution de la requete SQL
+                $ajoutCastingFilm->execute([
+                    ":film_id" => $pdo->lastInsertId(),
+                    ":genre_id" => $genres["id"]
+                ]);
+
+                
                 header("Location:index.php?action=listFilms");
                 die();
             }
         }
-
+        //Page d'affichage
         require "view/ajoutFilm.php";
     }
 }

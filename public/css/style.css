@@ -38,6 +38,16 @@ header ul {
 header ul li {
     font-size: 27px;
 }
+.addContent {
+    transform: rotate(45deg);
+    margin-left: 7px;
+}
+a:hover .addContent {
+    color: rgb(79, 168, 79);
+}
+a:hover .addContent, .addContent {
+    transition: 0.3s;
+}
 
 #contenu {
     display: flex;
@@ -132,6 +142,7 @@ table tbody tr:nth-child(even) {
     flex-direction: column;
     align-items: center;
 }
+
 .detailView div:first-child img{
     width: 90%;
     border-radius: 4px;
@@ -176,10 +187,68 @@ table tbody tr:nth-child(even) {
 
 
 /* ligne de séparation du tableau */
-table thead th:not(:last-child){
-    border-right: 1px solid #8f8f8f;
-}
-table tbody td:not(:last-child){
+table thead th:not(:last-child), table tbody td:not(:last-child){
     border-right: 1px solid #8f8f8f;
 }
 
+
+/* Formulaire */
+.formView form{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+.formInput {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.formInput input, #synopsisInput{
+    width: 50%;
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+}
+.formInput select {
+    width: 25%;
+}
+/* Envoie */
+form>input:last-child {
+    width: 15%;
+    height: 40px;
+    font-size: 25px;
+    margin: auto;
+}
+
+#inputGenres div:last-child {
+    width: 50%;
+    justify-content: space-between;
+    display: flex;
+}
+#inputGenres div:last-child select {
+    width: 50%;
+}
+#inputGenres div div p {
+    font-size: 15px;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+#listGenre {
+    width: 25%;
+    background-color: white;
+    overflow: auto;
+    max-height: 75px;
+    padding-left: 5px;
+    border-radius: 5px;
+}
+#listGenre div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 5px 0;
+}
+#listGenre div p {
+    margin-left: 5px;
+}

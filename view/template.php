@@ -12,13 +12,13 @@
     <header>
         <ul>
         <li>
-                <a href="index.php?action=listFilms">Liste des films</a>
+                <a href="index.php?action=listFilms">Liste des films</a><a href="index.php?action=addFilm"><i class="fa-solid fa-circle-xmark addContent"></i></a>
         </li>
         <li>
-                <a href="index.php?action=listActeurs">Liste des acteurs</a>               
+                <a href="index.php?action=listActeurs">Liste des acteurs</a><a href="index.php?action=addActeur"><i class="fa-solid fa-circle-xmark addContent"></i></a>            
         </li>
         <li>
-                <a href="index.php?action=listRealisateurs">Liste des réalisateurs</a>                 
+                <a href="index.php?action=listRealisateurs">Liste des réalisateurs</a><a href="index.php?action=addRealisateur"><i class="fa-solid fa-circle-xmark addContent"></i></a>                 
         </li>
 
         </ul>
