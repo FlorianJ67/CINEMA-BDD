@@ -45,7 +45,7 @@
                     <div>
                         <p>Maintenir CTRL pour choix multiple</p>
                     </div>
-                    <select name="genres[]" id="genres" multiple>
+                    <select name="genres[]" id="genres" size="" multiple>
                         <?php
                             foreach($listGenre->fetchAll() as $genre) { 
                                 echo '<div>

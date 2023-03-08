@@ -234,6 +234,16 @@ form>input:last-child {
     font-style: italic;
     opacity: 0.7;
 }
+#genres {
+    padding: 4px;
+    border-radius: 10px;
+}
+#genres option:first-child {
+    border-radius: 5px 5px 0 0;
+}
+#genres option:last-child {
+    border-radius: 0 0 5px 5px;
+}
 
 #listGenre {
     width: 25%;

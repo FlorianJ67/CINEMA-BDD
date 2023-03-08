@@ -247,8 +247,7 @@ class CinemaController {
             //genre (tableau)
             $genres = filter_input(INPUT_POST, "genres" , FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-
-            if($titre && $realisateur && $duree && $sortie && $synopsis && $note){
+            if($titre && $realisateur && $duree && $sortie && $synopsis && $note && $genres){
 
             //Upload de l'image dans public/img
             if(isset($_FILES['affiche'])){
@@ -279,6 +278,7 @@ class CinemaController {
                     ":note" => $note,
                     ":affiche" => $affiche
                 ]);
+                $film_id = $pdo->lastInsertId();
 
                 //Préparation de la requete SQL
                 $ajoutCastingFilm = $pdo->prepare("
@@ -286,12 +286,13 @@ class CinemaController {
                         VALUES (:film_id, :genre_id)  
                 ");
                 //Exécution de la requete SQL
-                $ajoutCastingFilm->execute([
-                    ":film_id" => $pdo->lastInsertId(),
-                    ":genre_id" => $genres["id"]
-                ]);
+                foreach($genres as $genre){
+                    $ajoutCastingFilm->execute([
+                        ":film_id" => $film_id,
+                        ":genre_id" => $genre
+                    ]);
+                }
 
-                
                 header("Location:index.php?action=listFilms");
                 die();
             }
