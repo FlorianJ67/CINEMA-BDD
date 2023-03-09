@@ -5,6 +5,9 @@
     $filmographie= $requete2->fetchAll(); 
 ?>
 
+<!-- Vérifie si l'id de l'url existe -->
+<?php if(isset($realisateur["id"])) : ?>
+
 <div class='header'>
     <h3 class="uk-label uk-label-warning"><?= $realisateur["realisateur"] ?></h3>
 </div>
@@ -20,7 +23,7 @@
                     <p>
                         <?php if($realisateur["sex"] == "H") {
                             echo "Homme";
-                        } else if($realisateur["sex"] == "H") {
+                        } else if($realisateur["sex"] == "F") {
                             echo "Femme";
                         } else {
                             echo "Hélicoptère apache";
@@ -53,6 +56,14 @@
     </div>
 
 </div>
+
+<!-- Message d'erreur -->
+<?php else: ?>
+    <div class='error'>
+        <p style='text-align: center; font-size: 60px'>Le Réalisateur n'existe pas</p>
+    </div>
+
+<?php endif ?>
 
 <?php
 

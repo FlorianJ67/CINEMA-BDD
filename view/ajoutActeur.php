@@ -42,8 +42,8 @@
 
 <?php
 
-$titre = "Ajout d'acteur";
-$titre_secondaire = "Ajout d'acteur";
+$titre = "Ajout d'Acteur";
+$titre_secondaire = "Ajout d'Acteur";
 $contenu = ob_get_clean();
 require "view/template.php";
 

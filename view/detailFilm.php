@@ -5,6 +5,9 @@
     $casting= $requete2->fetchAll(); 
 ?>
 
+<!-- Vérifie si l'id de l'url existe -->
+<?php if(isset($film["id"])) : ?>
+
 <div class='header'>
     <h3 class="uk-label uk-label-warning"><?= $film["titre"] ?></h3>
 </div>
@@ -63,6 +66,15 @@
     </div>
 
 </div>
+
+<!-- Message d'erreur -->
+<?php else: ?>
+    
+    <div class='error'>
+        <p style='text-align: center; font-size: 60px'>Le Film n'existe pas</p>
+    </div>
+
+<?php endif ?>
 
 <?php
 

@@ -6,7 +6,9 @@ use Model\Connect;
 class CinemaController {
 
 
-    //Liste:
+/*
+**  Liste:
+*/
 
     public function listFilms() {
         
@@ -14,7 +16,8 @@ class CinemaController {
         $requete = $pdo->query("
             SELECT film.id AS filmID, titre, realisateur.id as realID, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie
             FROM film   
-            INNER JOIN realisateur ON realisateur.id = realisateur_id     
+            INNER JOIN realisateur ON realisateur.id = realisateur_id
+            ORDER BY film.titre    
         ");
         require "view/listFilms.php";
     }
@@ -24,7 +27,8 @@ class CinemaController {
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
             SELECT acteur.id, CONCAT(nom,' ',prenom) AS 'acteur', date_de_naissance, sex
-            FROM acteur       
+            FROM acteur 
+            ORDER BY acteur.nom       
         ");
       
         require "view/listActeurs.php";
@@ -35,20 +39,37 @@ class CinemaController {
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
             SELECT realisateur.id, CONCAT(nom,' ',prenom) AS 'realisateur', date_de_naissance, sex
-            FROM realisateur       
+            FROM realisateur
+            ORDER BY realisateur.nom    
         ");
       
         require "view/listRealisateurs.php";
     }
 
-    //détail:
+    public function listGenres() {
+        
+        $pdo = Connect::seConnecter();
+        $listGenres = $pdo->prepare("
+            SELECT DISTINCT genre.id, genre.nom
+            FROM genre 
+            ORDER BY genre.nom DESC  
+        ");
+        $listGenres->execute();
+
+        require "view/listGenres.php";
+    }
+
+/*
+**  Détail:
+*/
+
     public function detailFilm($id) {
         
         //Connexion à la base de donnée
         $pdo = Connect::seConnecter();
         //Préparation de la requete SQL
         $requete = $pdo->prepare("
-            SELECT titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie, note, affiche, synopsis, GROUP_CONCAT(CONCAT(UCASE(LEFT(genre.nom,1)),LCASE(SUBSTRING(genre.nom,2))) SEPARATOR ', ' ) as genres
+            SELECT film.id, titre, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', duree, sortie, note, affiche, synopsis, GROUP_CONCAT(CONCAT(UCASE(LEFT(genre.nom,1)),LCASE(SUBSTRING(genre.nom,2))) SEPARATOR ', ' ) as genres
             FROM film   
             INNER JOIN realisateur ON realisateur.id = realisateur_id  
             INNER JOIN filmGenre ON film.id = filmGenre.film_id  
@@ -123,7 +144,11 @@ class CinemaController {
         require "view/detailRealisateur.php";
     }
 
-    //Ajout:
+/*
+**  Ajout:
+*/
+
+    //Acteur
     public function addActeur() {
 
         if(isset($_POST['submit'])){
@@ -163,6 +188,7 @@ class CinemaController {
         require "view/ajoutActeur.php";
     }
 
+    //Réalisateur
     public function addRealisateur() {
 
         if(isset($_POST['submit'])){
@@ -202,11 +228,12 @@ class CinemaController {
         require "view/ajoutRealisateur.php";
     }
 
+    //Film
     public function addFilm() {
 
         $pdo = Connect::seConnecter();
 
-        //Liste des réalisateur pour input>select
+        //Liste des réalisateurs pour input>select
         //Préparation de la requete SQL
         $listRealisateur = $pdo->prepare("
             SELECT DISTINCT realisateur.id, CONCAT(realisateur.prenom, ' ', realisateur.nom) as realisateurFullName, realisateur.nom 
@@ -216,7 +243,7 @@ class CinemaController {
         //Exécution de la requete SQL
         $listRealisateur->execute();
 
-        //liste des genre pour input>checkbox
+        //liste des genres pour input>checkbox
         //Préparation de la requete SQL
         $listGenre = $pdo->prepare("
             SELECT DISTINCT genre.id, genre.nom
@@ -297,8 +324,55 @@ class CinemaController {
                 die();
             }
         }
+
         //Page d'affichage
         require "view/ajoutFilm.php";
+    }
+    
+    //Genre
+    public function addGenre() {
+
+        if(isset($_POST['submit'])){
+        
+            //nom
+            $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          
+            if($name){
+            $pdo = Connect::seConnecter();
+
+                //Vérifie si l'entrée existe déjà
+                $dupPrevent = $pdo->prepare("SELECT * FROM genre WHERE nom=?");
+                $dupPrevent->execute([$name]);
+                $genre = $dupPrevent->fetch();
+
+                if ($genre) {
+
+                    //Le Genre existe déjà
+                    $_SESSION["error"] = "Le genre existe déjà";
+                    header("Location:index.php?action=addGenre");
+                    die();
+
+                } else {
+
+                    //Créer le nouveau Genre
+                    //Préparation de la requete SQL
+                    $ajoutActeur = $pdo->prepare("
+                        INSERT INTO genre (nom)
+                            VALUES (:name)  
+                    ");
+                    //Exécution de la requete SQL
+                    $ajoutActeur->execute([
+                        ":name" => ucfirst($name)           
+                    ]);
+                    header("Location:index.php?action=listGenres");
+                    die();
+                }
+
+
+            }
+        }
+
+        require "view/ajoutGenre.php";
     }
 }
 

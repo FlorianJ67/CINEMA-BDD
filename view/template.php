@@ -20,7 +20,9 @@
         <li>
                 <a href="index.php?action=listRealisateurs">Liste des réalisateurs</a><a href="index.php?action=addRealisateur"><i class="fa-solid fa-circle-xmark addContent"></i></a>                 
         </li>
-
+        <li>
+                <a href="index.php?action=listGenres">Liste des genres</a><a href="index.php?action=addGenre"><i class="fa-solid fa-circle-xmark addContent"></i></a>                 
+        </li>
         </ul>
     </header>
     <main>

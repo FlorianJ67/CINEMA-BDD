@@ -19,6 +19,7 @@ if(isset($_GET["action"])){
       case "listFilms" : $ctrlCinema->listFilms(); break;
       case "listActeurs" : $ctrlCinema->listActeurs(); break;
       case "listRealisateurs" : $ctrlCinema->listRealisateurs(); break;
+      case "listGenres" : $ctrlCinema->listGenres(); break;
 
       //détail: 
       case "detailFilm" : $ctrlCinema->detailFilm($id); break;
@@ -29,6 +30,7 @@ if(isset($_GET["action"])){
       case "addFilm" : $ctrlCinema->addFilm(); break;
       case "addActeur" : $ctrlCinema->addActeur(); break;
       case "addRealisateur" : $ctrlCinema->addRealisateur(); break;
+      case "addGenre" : $ctrlCinema->addGenre(); break;
 
     }
 }
