@@ -325,7 +325,10 @@ class CinemaController {
             //genre
             $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
             //note
-            $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+            if($_POST['submit']['note'] <= 5 && $_POST['submit']['note'] >= 0){
+                $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+            }
+
             //genre (tableau)
             $genres = filter_input(INPUT_POST, "genres" , FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
