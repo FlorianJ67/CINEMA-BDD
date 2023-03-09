@@ -69,8 +69,8 @@
 
 <!-- Message d'erreur -->
 <?php else: ?>
-    
-    <div class='error'>
+
+    <div class='error container' style="border-radius: 8px; padding: 2%;">
         <p style='text-align: center; font-size: 60px'>Le Film n'existe pas</p>
     </div>
 

@@ -339,6 +339,7 @@ class CinemaController {
           
             if($name){
             $pdo = Connect::seConnecter();
+            session_start();
 
                 //Vérifie si l'entrée existe déjà
                 $dupPrevent = $pdo->prepare("SELECT * FROM genre WHERE nom=?");

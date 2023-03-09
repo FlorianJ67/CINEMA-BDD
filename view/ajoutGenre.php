@@ -20,18 +20,16 @@
             </form>
     </div>
 
-    <!-- Error displayer -->
-    <?php if(isset($_SESSION["error"])) {
-        echo '<div id="pop up" class="error">
-                <p>'. $_SESSION["error"] .'</p>
-            </div>';
-        $_SESSION["error"] = null;
-    }
-?>
-
-
-
 </div>
+
+<!-- Error displayer -->
+<?php if(isset($_SESSION["error"])) {
+    echo '<div id="popUp" class="error">
+            <p>'. $_SESSION["error"] .'</p>
+        </div>';
+    $_SESSION["error"] = null;
+}
+?>
 
 <?php
 

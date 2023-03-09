@@ -61,8 +61,8 @@
 
 <!-- Message d'erreur -->
 <?php else: ?>
-    <div class='error'>
-        <p style='text-align: center; font-size: 60px'>L'Acteur n'existe pas</p>
+    <div class='error container' style="border-radius: 8px; padding: 2%;">
+        <p class='detailView' style='text-align: center; font-size: 60px'>L'Acteur n'existe pas</p>
     </div>
 
 <?php endif ?>

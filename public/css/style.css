@@ -7,6 +7,33 @@
 :root {
     --grey1 :#a1a1a1;
 }
+
+/*
+** ScrollBar
+*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(231, 231, 231); 
+    border-radius: 10px;
+    border: #a5a5a5 0.1px solid;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #9e9e9e; 
+}
+
 a {
     text-decoration: none;
     color: white
@@ -93,7 +120,7 @@ a:hover .addContent, .addContent {
     padding: 10px;
     border-radius: 0 0 8px 8px;
 }
-.container, .header {
+.container, .header, #popUp {
     box-shadow: rgb(38 57 77) 0px 20px 30px -10px;
 }
 
@@ -157,7 +184,7 @@ table tbody tr:nth-child(even) {
 #note i.fa-solid{
     color: #f9ce30;
 }
-.detailView ul {
+.detailView ul, :not(#popUp).error p {
     background-color: rgba(255, 255, 255, 0.325);
     border-radius: 5px;
     padding: 10px;
@@ -204,14 +231,17 @@ table thead th:not(:last-child), table tbody td:not(:last-child){
     justify-content: space-between;
     margin: 5px 0;
 }
-.formInput input, #synopsisInput{
+.formInput input, #synopsisInput {
     width: 50%;
+    max-width: 50%;
+    min-width: 50%;
     padding: 5px;
     border-radius: 2px;
     border: none;
 }
 .formInput select {
     width: 25%;
+    border-radius: 2px;
 }
 /* Envoie */
 form>input:last-child {
@@ -219,6 +249,7 @@ form>input:last-child {
     height: 40px;
     font-size: 25px;
     margin: auto;
+    margin-top: 30px;
 }
 
 #inputGenres div:last-child {
@@ -261,4 +292,34 @@ form>input:last-child {
 }
 #listGenre div p {
     margin-left: 5px;
+}
+
+/*
+**  Erreur
+*/
+@keyframes popUp {
+    0% {
+        top: -70px;
+        opacity: 0;
+    }
+    100% {
+        top: 10px;
+        opacity: 1;
+    }
+}
+#popUp {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    height: 90px;
+    background-color: rgb(199, 199, 199);
+    border-radius: 10px;
+    transition: 1s;
+    position: relative;
+    animation: popUp 0.8s ease-out forwards;
+}
+.error p {
+    color: rgb(177, 62, 62);
+    font-size: 25px;
 }
