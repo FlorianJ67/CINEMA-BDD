@@ -4,6 +4,9 @@
     list-style: none;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+/*
+** Root
+*/
 :root {
     --grey1 :#a1a1a1;
 }
@@ -15,28 +18,32 @@
 ::-webkit-scrollbar {
     width: 10px;
 }
-  
 /* Track */
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
 }
-   
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgb(231, 231, 231); 
     border-radius: 10px;
     border: #a5a5a5 0.1px solid;
 }
-  
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #9e9e9e; 
 }
 
+/*
+** Changement générale
+*/
 a {
     text-decoration: none;
     color: white
+}
+main a:hover {
+    transition: 0.3s;
+    opacity: 0.5;
 }
 h1, h2, h3, p {
     color: rgb(37, 37, 37);
@@ -47,6 +54,10 @@ h1 {
 h2 {
     margin-bottom: 1%;
 }
+
+/*
+** Header
+*/
 header {
     display: flex;
     justify-content: space-around;
@@ -69,13 +80,17 @@ header ul li {
     transform: rotate(45deg);
     margin-left: 7px;
 }
-a:hover .addContent {
-    color: rgb(79, 168, 79);
+a .addContent {
+    transition: 0.3s;
 }
-a:hover .addContent, .addContent {
+a:hover .addContent {
+    color: rgb(80, 204, 80);
     transition: 0.3s;
 }
 
+/*
+** Main
+*/
 #contenu {
     display: flex;
     flex-direction: column;
@@ -206,7 +221,7 @@ table tbody tr:nth-child(even) {
     text-align: end;
     font-weight: bold;
 }
-.detailView p:first-child {
+.detailView>p:first-child {
     width: 28%;
     text-align: end;
     font-size: 30px;
@@ -251,7 +266,7 @@ table thead th:not(:last-child), table tbody td:not(:last-child){
     width: 25%;
     border-radius: 2px;
 }
-/* Envoie */
+/* (input)Envoie */
 form>input:last-child {
     width: 15%;
     height: 40px;
