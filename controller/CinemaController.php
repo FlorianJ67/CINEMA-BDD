@@ -98,7 +98,7 @@ class CinemaController {
         $pdo = Connect::seConnecter();
         //Préparation de la requete SQL
         $requete = $pdo->prepare("
-            SELECT id, CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur', sex, date_de_naissance
+            SELECT id, CONCAT(acteur.nom, ' ',acteur.prenom) AS 'acteur', sex, date_de_naissance, acteur.portrait
             FROM acteur 
             WHERE acteur.id = :id   
         ");
@@ -125,7 +125,7 @@ class CinemaController {
         $pdo = Connect::seConnecter();
         //Préparation de la requete SQL
         $requete = $pdo->prepare("
-            SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', sex, date_de_naissance
+            SELECT id, CONCAT(realisateur.nom, ' ',realisateur.prenom) AS 'realisateur', sex, date_de_naissance, realisateur.portrait
             FROM realisateur
             WHERE realisateur.id = :id   
         ");
@@ -142,6 +142,31 @@ class CinemaController {
         $requete2->execute(["id" => $id]);
 
         require "view/detailRealisateur.php";
+    }
+
+    public function detailGenre($id) {
+        
+        $pdo = Connect::seConnecter();
+        //Préparation de la requete SQL
+        $requete = $pdo->prepare("
+            SELECT id, genre.nom
+            FROM genre
+            WHERE genre.id = :id   
+        ");
+        //Exécution de la requete SQL
+        $requete->execute(["id" => $id]);
+
+        //Préparation de la requete SQL
+        $requete2 = $pdo->prepare("
+            SELECT DISTINCT film.id, film.titre
+            FROM film   
+            INNER JOIN filmgenre ON film.id = film_id
+            WHERE genre_id = :id   
+        ");
+        //Exécution de la requete SQL
+        $requete2->execute(["id" => $id]);
+
+        require "view/detailGenre.php";
     }
 
 /*
@@ -166,19 +191,34 @@ class CinemaController {
 
           
             if($firstname && $name && $sex && $birthday){
-            $pdo = Connect::seConnecter();
+                $pdo = Connect::seConnecter();
+
+                //Upload de l'image dans public/img
+                if(isset($_FILES['portrait'])){
+                    $tmpName = $_FILES['portrait']['tmp_name'];
+                    $name = $_FILES['portrait']['name'];
+                    $size = $_FILES['portrait']['size'];
+                    $error = $_FILES['portrait']['error'];
+
+                    //UpLoad + chemain de l'upLoad
+                    move_uploaded_file($tmpName, './public/img/'.$name);
+
+                    //portrait
+                    $portrait = "public/img/".$name;
+                }
 
                 //Préparation de la requete SQL
                 $ajoutActeur = $pdo->prepare("
-                    INSERT INTO acteur (prenom, nom, sex, date_de_naissance)
-                        VALUES (:firstname, :name, :sex, :birthday)  
+                    INSERT INTO acteur (prenom, nom, sex, date_de_naissance, acteur.portrait)
+                        VALUES (:firstname, :name, :sex, :birthday, :portrait)  
                 ");
                 //Exécution de la requete SQL
                 $ajoutActeur->execute([
                     ":firstname" => ucfirst($firstname),
                     ":name" => ucfirst($name),
                     ":sex" => $sex,
-                    ":birthday" => $birthday            
+                    ":birthday" => $birthday,
+                    ":portrait" => $portrait           
                 ]);
                 header("Location:index.php?action=listActeurs");
                 die();
@@ -206,19 +246,34 @@ class CinemaController {
 
           
             if($firstname && $name && $sex && $birthday){
-            $pdo = Connect::seConnecter();
+                $pdo = Connect::seConnecter();
+
+                //Upload de l'image dans public/img
+                if(isset($_FILES['portrait'])){
+                    $tmpName = $_FILES['portrait']['tmp_name'];
+                    $name = $_FILES['portrait']['name'];
+                    $size = $_FILES['portrait']['size'];
+                    $error = $_FILES['portrait']['error'];
+
+                    //UpLoad + chemain de l'upLoad
+                    move_uploaded_file($tmpName, './public/img/'.$name);
+
+                    //portrait
+                    $portrait = "public/img/".$name;
+                }
 
                 //Préparation de la requete SQL
                 $ajoutRealisateur = $pdo->prepare("
-                    INSERT INTO realisateur (prenom, nom, sex, date_de_naissance)
-                        VALUES (:firstname, :name, :sex, :birthday)  
+                    INSERT INTO realisateur (prenom, nom, sex, date_de_naissance, realisateur.portrait)
+                        VALUES (:firstname, :name, :sex, :birthday, :portrait)  
                 ");
                 //Exécution de la requete SQL
                 $ajoutRealisateur->execute([
                     ":firstname" => ucfirst($firstname),
                     ":name" => ucfirst($name),
                     ":sex" => $sex,
-                    ":birthday" => $birthday            
+                    ":birthday" => $birthday,
+                    ":portrait" => $portrait            
                 ]);
                 header("Location:index.php?action=listRealisateurs");
                 die();

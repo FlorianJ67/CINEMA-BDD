@@ -11,7 +11,7 @@
 <div class='container'>
     <div class="formView">
 
-            <form action="index.php?action=addActeur" method="post">
+        <form action="index.php?action=addActeur" method="post" enctype= "multipart/form-data">
             <div class="formInput">
                 <label for="prenom">Prenom: </label>
                 <input type="text" name="firstname" id="prenom">
@@ -31,11 +31,13 @@
                 <label for="birthday" name="birthday" id="birthday">Date de naissance: </label>
                 <input type="date" name="birthday" id="birthday">
             </div>
-                <input type="submit" name="submit">
-            </form>
-    </div>
-    <div >
+            <div class="formInput">
+                <label for="portrait" name="portrait" id="portrait">Portrait: </label>
+                <input type="file" name="portrait" id="portrait" accept="image/png, image/jpeg">
+            </div>
 
+            <input type="submit" name="submit">
+        </form>
     </div>
 
 </div>

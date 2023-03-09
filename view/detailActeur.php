@@ -17,7 +17,7 @@
     <div class='container'>
         <div class="detailView">
             <div>
-                <img src="https://fr.russia.postsen.com/content/uploads/2023/02/12/fb4a0535b4.jpg" alt="photo de l'acteur <?= $acteur["acteur"] ?>">
+                <img src="<?= $acteur["portrait"] ?>" alt="affiche de l'acteur <?= $acteur["acteur"] ?>">
             </div>
                 <ul>
                     <li>
@@ -25,7 +25,7 @@
                         <p>
                             <?php if($acteur["sex"] == "H") {
                                 echo "Homme";
-                            } else if($acteur["sex"] == "H") {
+                            } else if($acteur["sex"] == "F") {
                                 echo "Femme";
                             } else {
                                 echo "Hélicoptère apache";

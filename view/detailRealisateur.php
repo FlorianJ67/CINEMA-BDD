@@ -15,7 +15,7 @@
 <div class='container'>
     <div class="detailView">
         <div>
-            <img src="https://fr.russia.postsen.com/content/uploads/2023/02/12/fb4a0535b4.jpg" alt="photo du réalisateur <?= $realisateur["realisateur"] ?>">
+            <img src="<?= $realisateur["portrait"] ?>" alt="affiche de l'acteur <?= $realisateur["realisateur"] ?>">
         </div>
             <ul>
                 <li>

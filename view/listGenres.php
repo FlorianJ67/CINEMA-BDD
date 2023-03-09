@@ -14,11 +14,11 @@
         </thead>
         <tbody>
             <?php
-                foreach($listGenres->fetchAll() as $genre) { ?>
+                foreach($listGenres->fetchAll() as $genre) : ?>
                     <tr>
                         <td><a href="index.php?action=detailGenre&id=<?= $genre['id']?>"><?= $genre['nom'] ?></a></td>
                     </tr>
-            <?php } ?>
+            <?php endforeach ?>
         </tbody>
     </table>
 

@@ -173,6 +173,7 @@ table tbody tr:nth-child(even) {
 .detailView div:first-child img{
     width: 90%;
     border-radius: 4px;
+    border: 1px solid #646464;
 }
 #note {
     margin-top: 10px;
@@ -195,6 +196,7 @@ table tbody tr:nth-child(even) {
 .detailView ul li{
     display: flex;
     justify-content: center;
+    margin: 10px 0;
 }
 .detailView ul li p{
     margin: 10px;
@@ -203,6 +205,12 @@ table tbody tr:nth-child(even) {
 .detailView ul li p:first-child{
     text-align: end;
     font-weight: bold;
+}
+.detailView p:first-child {
+    width: 28%;
+    text-align: end;
+    font-size: 30px;
+    padding-top: 20px;
 }
 #synopsis {
     background-color: rgba(255, 255, 255, 0.325);
