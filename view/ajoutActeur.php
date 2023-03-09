@@ -14,11 +14,11 @@
         <form action="index.php?action=addActeur" method="post" enctype= "multipart/form-data">
             <div class="formInput">
                 <label for="prenom">Prenom: </label>
-                <input type="text" name="firstname" id="prenom">
+                <input type="text" name="firstname" id="prenom" placeholder="Prenom">
             </div>
             <div class="formInput">
                 <label for="nom">Nom: </label>
-                <input type="text" name="name" id="nom">
+                <input type="text" name="name" id="nom" placeholder="Nom">
             </div>
             <div class="formInput">
                 <label for="sex">Sex: </label>

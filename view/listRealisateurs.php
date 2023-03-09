@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php
+ob_start(); 
+require('Service/fonction.php');
+?>
 
 <div class='header'>
     <p class="uk-label uk-label-warning">Il y a <?= $requete->rowCount() ?> réalisateur</p>
@@ -20,7 +23,7 @@
                     <tr>
                         <td><a href="index.php?action=detailRealisateur&id=<?= $realisateur['id']?>"><?= $realisateur['realisateur'] ?></a></td>
                         <td><?= $realisateur["sex"] ?></td>
-                        <td><?= $realisateur["date_de_naissance"] ?></td>
+                        <td><?php DateFormatToEU($realisateur["date_de_naissance"]) ?></td>
                     </tr>
             <?php } ?>
         </tbody>

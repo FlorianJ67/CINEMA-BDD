@@ -13,8 +13,8 @@
 
             <form action="index.php?action=addFilm" method="post" enctype= "multipart/form-data">
             <div class="formInput">
-                <label for="titre">Titre: </label>
-                <input type="text" name="titre" id="titre">
+                <label for="titre">Titre *</label>
+                <input type="text" name="titre" id="titre" placeholder="Titre" required>
             </div>
             <div class="formInput">
                 <!--use select option -->
@@ -29,21 +29,21 @@
             </div>
             <div class="formInput">
                 <label for="duree">Durée: </label>
-                <input type="int" name="duree" id="duree">
+                <input type="int" name="duree" id="duree" placeholder="Durée">
             </div>
             <div class="formInput">
                 <label for="sortie" name="sortie" id="sortie">Date de sortie: </label>
-                <input type="date" name="sortie" id="sortie">
+                <input type="date" name="sortie" id="sortie" placeholder="Sortie">
             </div>
             <div class="formInput">
                 <label for="synopsis" name="synopsis" id="synopsisLabel">Synopsis: </label>
-                <textarea name="synopsis" id="synopsisInput" rows="3"></textarea>
+                <textarea name="synopsis" id="synopsisInput" rows="3" placeholder="Synopsis"></textarea>
             </div>
             <div class="formInput" id="inputGenres">
                 <label for="genres" name="genres[]" id="genres">Genre: </label>
                 <div>
-                    <div>
-                        <p>Maintenir CTRL pour choix multiple</p>
+                    <div style="width: 47%;">
+                        <p style="text-align: end;">Maintenir CTRL pour choix multiple</p>
                     </div>
                     <select name="genres[]" id="genres" size="" multiple>
                         <?php
@@ -59,7 +59,11 @@
             </div>
             <div class="formInput">
                 <label for="note" name="note" id="note">Note: </label>
-                <input type="int" name="note" id="note">
+                <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                    <input type="number" min="0" max="5" step="0.5" name="note" id="note" placeholder="Note" style="max-width: 90%; min-width: 60%;">
+                    <p>/5</p>
+                </div>
+
             </div>
             <div class="formInput">
                 <label for="affiche" name="affiche" id="affiche">Affiche: </label>

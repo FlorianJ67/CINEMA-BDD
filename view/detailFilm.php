@@ -1,6 +1,8 @@
-<?php ob_start(); ?>
-
 <?php 
+    ob_start(); 
+
+    require('Service/fonction.php');
+
     $film= $requete->fetch(); 
     $casting= $requete2->fetchAll(); 
 ?>
@@ -19,9 +21,19 @@
             <div id="note">
                 <?php 
                     $note = intval($film["note"]);
+                    $floatNote = floatval($film["note"]);
+
                     $leftover = 5 - $note ;
-                    echo str_repeat('<i class="fa-solid fa-star"></i>',$note);
-                    echo str_repeat('<i class="fa-regular fa-star"></i>',$leftover); 
+                    if ($note != $floatNote) {
+                        echo str_repeat('<i class="fa-solid fa-star"></i>',ceil($note));
+                        echo '  <i class="fa-solid fa-star" aria-hidden="true" style=" clip-path: polygon(50% 0%, 50% 100%, 0% 100%, 0% 0%);"></i>
+                                <i class="fa-regular fa-star" aria-hidden="true" style=" clip-path: polygon(50% 100%, 50% 0%, 100% 0%, 100% 100%); position: relative; left: -31.9px;"></i>';
+                        echo str_repeat('<i class="fa-regular fa-star" style="position: relative; left: -31.9px;"></i>',floor($leftover)-1);
+                    } else {
+                        echo str_repeat('<i class="fa-solid fa-star"></i>',$note);
+                        echo str_repeat('<i class="fa-regular fa-star"></i>',$leftover); 
+                    }
+
                 ?>
             </div>
         </div>
@@ -32,11 +44,11 @@
                 </li>
                 <li>
                     <p>Durée</p>
-                    <p><?= $film["duree"] ?> min</p>
+                    <p><?php ConvertMinToHour($film["duree"]) ?></p>
                 </li>
                 <li>
                     <p>Sortie</p>
-                    <p><?= $film["sortie"] ?></p>
+                    <p><?php DateFormatToEU($film["sortie"]) ?></p>
                 </li>
                 <li>
                     <p>Genre</p>

@@ -1,4 +1,8 @@
-<?php ob_start(); ?>
+<?php 
+ob_start();
+require('Service/fonction.php');
+
+?>
 
 <div class='header'>
     <p class="uk-label uk-label-warning">Il y a <?= $requete->rowCount() ?> Acteurs</p>
@@ -19,7 +23,7 @@
                 foreach($requete->fetchAll() as $acteur) { ?>
                     <tr>
                         <td><a href="index.php?action=detailActeur&id=<?= $acteur['id']?>"><?= $acteur['acteur'] ?></a></td>
-                        <td><?= $acteur["date_de_naissance"] ?></td>
+                        <td><?php DateFormatToEU($acteur["date_de_naissance"]) ?></td>
                         <td><?= $acteur["sex"] ?></td>
                     </tr>
             <?php } ?>

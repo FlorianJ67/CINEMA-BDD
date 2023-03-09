@@ -1,6 +1,8 @@
-<?php ob_start(); ?>
-
 <?php 
+    ob_start(); 
+
+    require('Service/fonction.php');
+
     $realisateur= $requete->fetch(); 
     $filmographie= $requete2->fetchAll(); 
 ?>
@@ -33,7 +35,7 @@
                 </li>
                 <li>
                     <p>Date de Naissance</p>
-                    <p><?= $realisateur["date_de_naissance"] ?></p>
+                    <p><?php DateFormatToEU($realisateur["date_de_naissance"]) ?></p>
                 </li>
                 <li>
                     <p>Filmographie</p>

@@ -1,11 +1,11 @@
-<?php ob_start(); ?>
+<?php
+    ob_start();
 
+    require('Service/fonction.php');
 
-
-    <?php 
-        $acteur= $requete->fetch(); 
-        $filmographie= $requete2->fetchAll(); 
-    ?>
+    $acteur= $requete->fetch(); 
+    $filmographie= $requete2->fetchAll(); 
+?>
 
 <!-- Vérifie si l'id de l'url existe -->
 <?php if(isset($acteur["id"])): ?>
@@ -35,7 +35,7 @@
                     </li>
                     <li>
                         <p>Date de Naissance</p>
-                        <p><?= $acteur["date_de_naissance"] ?></p>
+                        <p><?php DateFormatToEU($acteur["date_de_naissance"]) ?></p>
                     </li>
                     <li>
                         <p>Filmographie</p>
