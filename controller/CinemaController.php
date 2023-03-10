@@ -445,6 +445,40 @@ class CinemaController {
         require "view/ajoutGenre.php";
     }
 
+    public function addCasting() {
+
+        if(isset($_POST['submit'])){
+        
+            //film
+            $film = filter_input(INPUT_POST, "film", FILTER_SANITIZE_NUMBER_INT);
+            //acteur
+            $acteur = filter_input(INPUT_POST, "acteur", FILTER_SANITIZE_NUMBER_INT);
+            //role
+            $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
+
+          
+            if($film && $acteur && $role){
+                $pdo = Connect::seConnecter();
+
+                //Préparation de la requete SQL
+                $ajoutCasting = $pdo->prepare("
+                    INSERT INTO casting (film_id, acteur_id, role_id)
+                        VALUES (:film, :acteur, :role)  
+                ");
+                //Exécution de la requete SQL
+                $ajoutCasting->execute([
+                    ":film" => $film,
+                    ":acteur" => $acteur,
+                    ":role" => $role        
+                ]);
+                header("Location:index.php?action=detailFilm?id='" . $film . "'");
+                die();
+            }
+        }
+
+        require "view/ajoutCasting.php";
+    }
+
     public function addRole() {
 
         if(isset($_POST['submit'])){

@@ -13,7 +13,7 @@
 
             <form action="index.php?action=addGenre" method="post">
             <div class="formInput">
-                <label for="nom">Nom: </label>
+                <label for="nom">Nom *</label>
                 <input type="text" name="name" id="nom" placeholder="nom du genre" required>
             </div>
                 <input type="submit" name="submit">

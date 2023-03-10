@@ -2,6 +2,8 @@
 
 <?php 
 
+
+
 ?> 
 
 <div class='header'>
@@ -13,23 +15,23 @@
 
         <form action="index.php?action=addCasting" method="post" >
             <div class="formInput">
+                <label for="film">Film *</label>
+                <select name="film" id="film" >
+                    <option value="" disabled selected>Film</option>
+                    <?php
+                        foreach($listFilm->fetchAll() as $film) { 
+                            echo '<option value="'. $film['id'] .'">'. $film['titre'] .'</option>';
+                        }
+                        ?>
+                </select>
+            </div>
+            <div class="formInput">
                 <label for="acteur">Acteur *</label>
                 <select name="acteur" id="acteur" >
                     <option value="" disabled selected>Acteur</option>
                     <?php
                         foreach($listActeur->fetchAll() as $acteur) { 
                             echo '<option value="'. $acteur['id'] .'">'. $acteur['acteur'] .'</option>';
-                        }
-                    ?>
-                </select>
-            </div>
-            <div class="formInput">
-                <label for="film">Film *</label>
-                <select name="film" id="acteur" >
-                    <option value="" disabled selected>Film</option>
-                    <?php
-                        foreach($listActeur->fetchAll() as $acteur) { 
-                            echo '<option value="'. $film['id'] .'">'. $film['titre'] .'</option>';
                         }
                     ?>
                 </select>
