@@ -325,7 +325,7 @@ class CinemaController {
             //genre
             $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
             //note
-            if($_POST['submit']['note'] <= 5 && $_POST['submit']['note'] >= 0){
+            if($_POST['submit']['note'] <= 5 && $_POST['submit']['note'] >= 0 && is_int($_POST['submit']['note']*2) ){
                 $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
             }
 
@@ -394,6 +394,7 @@ class CinemaController {
         
             //nom
             $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $action = filter_input(INPUT_POST, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           
             if($name){
             $pdo = Connect::seConnecter();
@@ -408,8 +409,6 @@ class CinemaController {
 
                     //Le Genre existe déjà
                     $_SESSION["error"] = "Le genre existe déjà";
-                    header("Location:index.php?action=addGenre");
-                    die();
 
                 } else {
 
@@ -423,11 +422,16 @@ class CinemaController {
                     $ajoutActeur->execute([
                         ":name" => ucfirst($name)           
                     ]);
-                    header("Location:index.php?action=listGenres");
-                    die();
+
                 }
 
-
+                if ($action == "addFilm") {
+                    header("Location:index.php?action=addFilm");
+                    die();
+                } else {
+                    header("Location:index.php?action=addGenre");
+                    die();
+                }
             }
         }
 

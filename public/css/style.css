@@ -247,6 +247,7 @@ table thead th:not(:last-child), table tbody td:not(:last-child){
     display: flex;
     flex-direction: column;
     font-size: 20px;
+    padding: 0 10%;
 }
 .formInput {
     width: 100%;
@@ -315,6 +316,46 @@ form>input:last-child {
 }
 #listGenre div p {
     margin-left: 5px;
+}
+
+#ajoutGenreInFilm {
+    display: flex;
+    justify-content: flex-end;
+    width: 72%;
+    position: relative;
+    bottom: 210px;
+}
+#ajoutGenreInFilmSpace {
+    height: 45px;
+}
+#ajoutGenreInFilm form {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+#ajoutGenreInFilm form .formInput {
+    align-items: center;
+    flex-direction: column;
+    margin: unset;
+}
+#ajoutGenreInFilm form .formInput label {
+    width: fit-content;
+    font-size: 14px;
+    text-align: end;
+    margin-right: 2%;
+}
+#ajoutGenreInFilm form .formInput input {
+    width: 100%!important;
+    max-width: unset;
+    padding: unset;
+}
+#ajoutGenreInFilm form input:last-child {
+    width: 25%;
+    height: 20px;
+    font-size: 10px;
+    margin: unset;
+    margin-top: 5px;
 }
 
 /*

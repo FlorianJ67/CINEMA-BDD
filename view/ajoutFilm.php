@@ -7,11 +7,10 @@
 <div class='header'>
     <h3 class="uk-label uk-label-warning">Formulaire d'ajout</h3>
 </div>
-
 <div class='container'>
     <div class="formView">
 
-            <form action="index.php?action=addFilm" method="post" enctype= "multipart/form-data">
+        <form action="index.php?action=addFilm" method="post" enctype= "multipart/form-data">
             <div class="formInput">
                 <label for="titre">Titre *</label>
                 <input type="text" name="titre" id="titre" placeholder="Titre" required>
@@ -48,13 +47,15 @@
                     <select name="genres[]" id="genres" size="" multiple>
                         <?php
                             foreach($listGenre->fetchAll() as $genre) { 
-                                echo '<div>
-                                        <option value="'. $genre['id'] .'">'. $genre['nom'] .'</option>
-                                    </div>';
+                                echo    '<div>
+                                            <option value="'. $genre['id'] .'">'. $genre['nom'] .'</option>
+                                        </div>';
                             }
                         ?>
                     </select>
                 </div>
+            </div>
+            <div id="ajoutGenreInFilmSpace">
 
             </div>
             <div class="formInput">
@@ -69,13 +70,19 @@
                 <label for="affiche" name="affiche" id="affiche">Affiche: </label>
                 <input type="file" name="affiche" id="affiche" accept="image/png, image/jpeg">
             </div>
-                <input type="submit" name="submit">
-            </form>
+            <input type="submit" name="submit">
+        </form>
     </div>
-    <div >
-
-    </div>
-
+</div>
+<div id="ajoutGenreInFilm">
+    <form action="index.php?action=addGenre" method="post">
+        <div class="formInput">
+            <label for="nom">Ajout de genre: </label>
+            <input type="text" name="name" id="nom" placeholder="nom du genre">
+        </div>
+        <input style="display: none" type="text" name="action" id="action" value="<?= $_GET['action']?>">
+        <input type="submit" name="submit">
+    </form>
 </div>
 
 <?php

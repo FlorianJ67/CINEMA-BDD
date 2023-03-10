@@ -17,7 +17,7 @@
 <div class='container'>
     <div class="detailView">
         <div>
-            <img src="<?= $realisateur["portrait"] ?>" alt="affiche de l'acteur <?= $realisateur["realisateur"] ?>">
+            <img src="<?= $realisateur["portrait"] ?>" alt="affiche du realisateur <?= $realisateur["realisateur"] ?>">
         </div>
             <ul>
                 <li>
