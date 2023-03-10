@@ -203,7 +203,7 @@ class CinemaController {
                     //UpLoad + chemain de l'upLoad
                     move_uploaded_file($tmpName, './public/img/'.$name);
 
-                    //portrait
+                    //Chemain vers portrait
                     $portrait = "public/img/".$name;
                 }
 
@@ -258,7 +258,7 @@ class CinemaController {
                     //UpLoad + chemain de l'upLoad
                     move_uploaded_file($tmpName, './public/img/'.$name);
 
-                    //portrait
+                    //Chemain vers portrait
                     $portrait = "public/img/".$name;
                 }
 
@@ -326,7 +326,7 @@ class CinemaController {
             $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
             //note
             if($_POST['submit']['note'] <= 5 && $_POST['submit']['note'] >= 0 && is_int($_POST['submit']['note']*2) ){
-                $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_INT);
+                $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_FLOAT);
             }
 
             //genre (tableau)
@@ -344,7 +344,7 @@ class CinemaController {
                 //UpLoad + chemain de l'upLoad
                 move_uploaded_file($tmpName, './public/img/'.$name);
 
-                //affiche
+                //Chemain vers affiche
                 $affiche = "public/img/".$name;
             }
 
@@ -410,6 +410,10 @@ class CinemaController {
                     //Le Genre existe déjà
                     $_SESSION["error"] = "Le genre existe déjà";
 
+                    //Recharge la page addGenre pour afficher l'erreur
+                    header("Location:index.php?action=addGenre");
+                    die();
+
                 } else {
 
                     //Créer le nouveau Genre
@@ -425,17 +429,77 @@ class CinemaController {
 
                 }
 
+                //Si dans addFilm
                 if ($action == "addFilm") {
                     header("Location:index.php?action=addFilm");
                     die();
+
+                //Si dans addGenre
                 } else {
-                    header("Location:index.php?action=addGenre");
+                    header("Location:index.php?action=listGenres");
                     die();
                 }
             }
         }
 
         require "view/ajoutGenre.php";
+    }
+
+    public function addRole() {
+
+        if(isset($_POST['submit'])){
+        
+            //nom
+            $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $action = filter_input(INPUT_POST, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          
+            if($name){
+            $pdo = Connect::seConnecter();
+            session_start();
+
+                //Vérifie si l'entrée existe déjà
+                $dupPrevent = $pdo->prepare("SELECT * FROM role WHERE nom=?");
+                $dupPrevent->execute([$name]);
+                $role = $dupPrevent->fetch();
+
+                if ($role) {
+
+                    //Le Role existe déjà
+                    $_SESSION["error"] = "Le role existe déjà";
+
+                    //Recharge la page addRole pour afficher l'erreur
+                    header("Location:index.php?action=addRole");
+                    die();
+
+                } else {
+
+                    //Créer le nouveau Role
+                    //Préparation de la requete SQL
+                    $ajoutRole = $pdo->prepare("
+                        INSERT INTO role (nom)
+                            VALUES (:name)  
+                    ");
+                    //Exécution de la requete SQL
+                    $ajoutRole->execute([
+                        ":name" => ucfirst($name)           
+                    ]);
+
+                }
+
+                //Si dans addCasting
+                if ($action == "addCasting") {
+                    header("Location:index.php?action=addCasting");
+                    die();
+
+                //Si dans addRole
+                } else {
+                    header("Location:index.php?action=listRole");
+                    die();
+                }
+            }
+        }
+
+        require "view/ajoutRole.php";
     }
 }
 

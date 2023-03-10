@@ -42,7 +42,7 @@ a {
     color: white
 }
 main a:hover {
-    transition: 0.3s;
+    transition: 0.2s;
     opacity: 0.5;
 }
 h1, h2, h3, p {
@@ -74,7 +74,13 @@ header ul {
     width: 80%;
 }
 header ul li {
-    font-size: 27px;
+    font-size: 20px;
+}
+header ul li a:first-child:hover {
+    opacity: 0.5;
+}
+header ul li a:first-child, header ul li a:first-child:hover {
+    transition: 0.2s;
 }
 .addContent {
     transform: rotate(45deg);
@@ -318,6 +324,7 @@ form>input:last-child {
     margin-left: 5px;
 }
 
+/* Fomulaire Genre dans addFilm */
 #ajoutGenreInFilm {
     display: flex;
     justify-content: flex-end;
@@ -356,6 +363,28 @@ form>input:last-child {
     font-size: 10px;
     margin: unset;
     margin-top: 5px;
+}
+
+#formAddRole {
+    display: flex;
+    min-width: 50%;
+}
+#formAddRole .formInput {
+    flex-direction: row;
+    width: 100%;
+}
+#formAddRole .formInput label {
+    margin: 0 10px;
+}
+#formAddRole .formInput input {
+    width: 100%;
+    max-width: unset;
+}
+#formAddRole>input:last-child {
+    width: unset;
+    height: unset;
+    font-size: unset;
+    margin: unset;
 }
 
 /*

@@ -11,30 +11,41 @@
 <div class='container'>
     <div class="formView">
 
-        <form action="index.php?action=addActeur" method="post" enctype= "multipart/form-data">
+        <form action="index.php?action=addCasting" method="post" >
             <div class="formInput">
-                <label for="prenom">Prenom: </label>
-                <input type="text" name="firstname" id="prenom" placeholder="Prenom">
-            </div>
-            <div class="formInput">
-                <label for="nom">Nom: </label>
-                <input type="text" name="name" id="nom" placeholder="Nom">
-            </div>
-            <div class="formInput">
-                <label for="sex">Sex: </label>
-                <select name="sex" id="sex">
-                    <option value="H">Homme</option>
-                    <option value="F">Femme</option>
+                <label for="acteur">Acteur *</label>
+                <select name="acteur" id="acteur" >
+                    <option value="" disabled selected>Acteur</option>
+                    <?php
+                        foreach($listActeur->fetchAll() as $acteur) { 
+                            echo '<option value="'. $acteur['id'] .'">'. $acteur['acteur'] .'</option>';
+                        }
+                    ?>
                 </select>
             </div>
             <div class="formInput">
-                <label for="birthday" name="birthday" id="birthday">Date de naissance: </label>
-                <input type="date" name="birthday" id="birthday">
+                <label for="film">Film *</label>
+                <select name="film" id="acteur" >
+                    <option value="" disabled selected>Film</option>
+                    <?php
+                        foreach($listActeur->fetchAll() as $acteur) { 
+                            echo '<option value="'. $film['id'] .'">'. $film['titre'] .'</option>';
+                        }
+                    ?>
+                </select>
             </div>
             <div class="formInput">
-                <label for="portrait" name="portrait" id="portrait">Portrait: </label>
-                <input type="file" name="portrait" id="portrait" accept="image/png, image/jpeg">
+                <label for="role">Role *</label>
+                <select name="role" id="role" >
+                    <option value="" disabled selected>Role</option>
+                    <?php
+                        foreach($listActeur->fetchAll() as $role) { 
+                            echo '<option value="'. $role['id'] .'">'. $role['nom'] .'</option>';
+                        }
+                    ?>
+                </select>
             </div>
+            
 
             <input type="submit" name="submit">
         </form>

@@ -11,10 +11,10 @@
 <div class='container'>
     <div class="formView">
 
-            <form action="index.php?action=addGenre" method="post">
+            <form action="index.php?action=addRole" method="post">
             <div class="formInput">
                 <label for="nom">Nom: </label>
-                <input type="text" name="name" id="nom" placeholder="nom du genre" required>
+                <input type="text" name="name" id="nom" placeholder="nom du role" required>
             </div>
                 <input type="submit" name="submit">
             </form>
@@ -33,8 +33,8 @@
 
 <?php
 
-$titre = "Ajout de Genre";
-$titre_secondaire = "Ajout de Genre";
+$titre = "Ajout de Role";
+$titre_secondaire = "Ajout de Role";
 $contenu = ob_get_clean();
 require "view/template.php";
 
