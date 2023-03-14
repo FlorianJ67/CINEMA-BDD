@@ -59,6 +59,22 @@ class CinemaController {
         require "view/listGenres.php";
     }
 
+    public function listCastings() {
+        
+        $pdo = Connect::seConnecter();
+        $listCastings = $pdo->prepare("
+            SELECT DISTINCT film_id, film.titre AS 'film', acteur_id, CONCAT(acteur.nom,' ',acteur.prenom) AS 'acteur', role.nom AS 'role'
+            FROM casting
+            INNER JOIN film ON film.id = film_id
+            INNER JOIN acteur ON acteur.id = acteur_id
+            INNER JOIN role ON role.id = role_id
+            ORDER BY 'film' DESC  
+        ");
+        $listCastings->execute();
+
+        require "view/listCastings.php";
+    }
+
 /*
 **  Détail:
 */
@@ -491,7 +507,7 @@ class CinemaController {
                     ":acteur" => $acteur,
                     ":role" => $role        
                 ]);
-                header("Location:index.php?action=detailFilm?id='" . $film . "'");
+                header("Location:index.php?action=detailFilm&id=" . $film );
                 die();
             }
         }

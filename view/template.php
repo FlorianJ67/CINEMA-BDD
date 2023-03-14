@@ -23,6 +23,9 @@
             <li>
                     <a href="index.php?action=listGenres">Liste des genres</a><a href="index.php?action=addGenre"><i class="fa-solid fa-circle-xmark addContent"></i></a>                 
             </li>
+            <li>
+                    <a href="index.php?action=listCastings">Liste des casting</a><a href="index.php?action=addCasting"><i class="fa-solid fa-circle-xmark addContent"></i></a>                 
+            </li>
         </ul>
     </header>
     <main>
