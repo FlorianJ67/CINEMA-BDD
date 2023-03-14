@@ -447,6 +447,26 @@ class CinemaController {
 
     public function addCasting() {
 
+        $pdo = Connect::seConnecter();
+
+        $filmList = $pdo->query("
+            SELECT film.id , titre
+            FROM film   
+            ORDER BY film.titre    
+        ");
+
+        $acteurList = $pdo->query("
+        SELECT acteur.id, CONCAT(nom,' ',prenom) AS 'acteur'
+        FROM acteur 
+        ORDER BY 'acteur'       
+        ");
+
+        $roleList = $pdo->query("
+        SELECT role.id, role.nom
+        FROM role 
+        ORDER BY role.nom       
+        ");
+
         if(isset($_POST['submit'])){
         
             //film

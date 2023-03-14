@@ -2,7 +2,7 @@
 
 <?php 
 
-
+session_start();
 
 ?> 
 
@@ -19,7 +19,7 @@
                 <select name="film" id="film" >
                     <option value="" disabled selected>Film</option>
                     <?php
-                        foreach($listFilm->fetchAll() as $film) { 
+                        foreach($filmList->fetchAll() as $film) { 
                             echo '<option value="'. $film['id'] .'">'. $film['titre'] .'</option>';
                         }
                         ?>
@@ -30,7 +30,7 @@
                 <select name="acteur" id="acteur" >
                     <option value="" disabled selected>Acteur</option>
                     <?php
-                        foreach($listActeur->fetchAll() as $acteur) { 
+                        foreach($acteurList->fetchAll() as $acteur) { 
                             echo '<option value="'. $acteur['id'] .'">'. $acteur['acteur'] .'</option>';
                         }
                     ?>
@@ -41,7 +41,7 @@
                 <select name="role" id="role" >
                     <option value="" disabled selected>Role</option>
                     <?php
-                        foreach($listActeur->fetchAll() as $role) { 
+                        foreach($roleList->fetchAll() as $role) { 
                             echo '<option value="'. $role['id'] .'">'. $role['nom'] .'</option>';
                         }
                     ?>
